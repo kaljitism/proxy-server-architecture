@@ -30,6 +30,7 @@ proxy.on('request', (clientRequest, proxyResponse) => {
   const mainServer = mainServers.shift();
   mainServers.push(mainServer);
   
+  
   // The request that we are sending to one of our main servers
   const proxyRequest = http.request({
     host: mainServer.host,
@@ -38,6 +39,8 @@ proxy.on('request', (clientRequest, proxyResponse) => {
     method: clientRequest.method,
     headers: clientRequest.headers,
   });
+  
+  console.log('Routing to http://localhost:', mainServer.port);
   
   // Once we receive a response from one of our main servers
   proxyRequest.on('response', mainServerResponse => {
